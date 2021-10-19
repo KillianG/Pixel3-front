@@ -1,5 +1,5 @@
-import { Web3Provider } from "@ethersproject/providers";
-import { useWeb3React, UnsupportedChainIdError } from "@web3-react/core";
+import { Web3Provider  } from "@ethersproject/providers";
+import { useWeb3React, UnsupportedChainIdError  } from "@web3-react/core";
 import {
   NoEthereumProviderError,
   UserRejectedRequestError as UserRejectedRequestErrorInjected,
@@ -11,6 +11,7 @@ import { injected, walletconnect, POLLING_INTERVAL } from "../dapp/connectors";
 import { useEagerConnect, useInactiveListener } from "../dapp/hooks";
 import logger from "../logger";
 import { Header } from "./Header";
+import ListNFT from "./ListNFT";
 
 function getErrorMessage(error: Error) {
   if (error instanceof NoEthereumProviderError) {
@@ -129,7 +130,7 @@ export default function Demo() {
         </div>
         <div className="card bordered">
           <figure>
-            <img className="h-24" src="https://walletconnect.org/walletconnect-logo.svg" alt="wallet connect" />
+            <img className="h-24" src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/master/svg/walletconnect-banner.svg" alt="wallet connect" />
           </figure>
           <div className="card-body">
             <h2 className="card-title">
@@ -197,6 +198,7 @@ export default function Demo() {
           </div>
         </div>
       </div>
+      <ListNFT />
     </>
   );
 }
