@@ -16,5 +16,4 @@ coverage
 .openzeppelin/*.json
 
 .next
-node_modules
 .idea
