@@ -194,24 +194,6 @@ export const pixel_abi: [{}] = [
   {
     "inputs": [
       {
-        "internalType": "string[]",
-        "name": "newLink",
-        "type": "string[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "tokenIds",
-        "type": "uint256[]"
-      }
-    ],
-    "name": "changeColorPack",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint256[]",
         "name": "newStats",
         "type": "uint256[]"
