@@ -1,3 +1,4 @@
+export const contract_address: string= "0x7F5f445fD67721FE7B2f4838554369B32Fa69868"
 export const pixel_abi: [{}] =[
   {
     "inputs": [],

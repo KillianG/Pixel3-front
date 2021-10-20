@@ -12,6 +12,8 @@ import { useEagerConnect, useInactiveListener } from "../dapp/hooks";
 import logger from "../logger";
 import { Header } from "./Header";
 import ListNFT from "./ListNFT";
+import Web3 from "web3";
+import { contract_address, pixel_abi } from "./abi";
 
 function getErrorMessage(error: Error) {
   if (error instanceof NoEthereumProviderError) {
@@ -58,10 +60,10 @@ export default function Demo() {
     <>
       <Header />
       <div>{!!error && <h4 style={{ marginTop: "1rem", marginBottom: "0" }}>{getErrorMessage(error)}</h4>}</div>
-      <div className="grid grid-cols-2 gap-2 px-2 py-4">
+      <div className="grid grid-col px-2 py-2 text-center">
         <div className="card bordered">
           <figure>
-            <img className="h-24" src="https://metamask.io/images/mm-logo.svg" alt="metamask" />
+            <img className="h-10" src="https://metamask.io/images/mm-logo.svg" alt="metamask" />
           </figure>
           <div className="card-body">
             <h2 className="card-title">
@@ -70,7 +72,7 @@ export default function Demo() {
               </a>
             </h2>
             <p>A crypto wallet & gateway to blockchain apps</p>
-            <div className="justify-end card-actions">
+            <div className="justify-center card-actions">
               <button
                 type="button"
                 className="btn btn-primary"
@@ -80,7 +82,7 @@ export default function Demo() {
                   activate(injected);
                 }}
               >
-                <div className="px-2 py-4">
+                <div className="px-2 py-2">
                   {activating(injected) && <p className="btn loading">loading...</p>}
                   {connected(injected) && (
                     <span role="img" aria-label="check">
@@ -97,18 +99,12 @@ export default function Demo() {
                       type="button"
                       className="btn btn-primary"
                       onClick={() => {
-                        library
-                          .getSigner(account)
-                          .signMessage("👋")
-                          .then((signature: any) => {
-                            window.alert(`Success!\n\n${signature}`);
-                          })
-                          .catch((err: Error) => {
-                            window.alert(`Failure!${err && err.message ? `\n\n${err.message}` : ""}`);
-                          });
+                        const w = new Web3(library.provider)
+                        const contract = new w.eth.Contract(pixel_abi, contract_address)
+                        contract.methods.mintNFT(account, "null").send({from: account })
                       }}
                     >
-                      Sign Message
+                      Mint a pixel
                     </button>
                   )}
                   <button
@@ -121,76 +117,7 @@ export default function Demo() {
                       deactivate();
                     }}
                   >
-                    Deactivate
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="card bordered">
-          <figure>
-            <img className="h-24" src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/master/svg/walletconnect-banner.svg" alt="wallet connect" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">
-              <a className="link link-hover" href="https://walletconnect.org/" target="_blank" rel="noreferrer">
-                Wallet Connect
-              </a>
-            </h2>
-            <p>Open protocol for connecting Wallets to Dapps</p>
-            <div className="justify-end card-actions">
-              <button
-                type="button"
-                className="btn btn-primary"
-                disabled={disabled}
-                onClick={() => {
-                  setActivatingConnector(walletconnect);
-                  activate(walletconnect);
-                }}
-              >
-                <div className="px-2 py-4">
-                  {activating(walletconnect) && <p className="btn loading">loading...</p>}
-                  {connected(walletconnect) && (
-                    <span role="img" aria-label="check">
-                      ✅
-                    </span>
-                  )}
-                </div>
-                Connect with WalletConnect
-              </button>
-              {(active || error) && connected(walletconnect) && (
-                <>
-                  {!!(library && account) && (
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={() => {
-                        library
-                          .getSigner(account)
-                          .signMessage("👋")
-                          .then((signature: any) => {
-                            window.alert(`Success!\n\n${signature}`);
-                          })
-                          .catch((err: Error) => {
-                            window.alert(`Failure!${err && err.message ? `\n\n${err.message}` : ""}`);
-                          });
-                      }}
-                    >
-                      Sign Message
-                    </button>
-                  )}
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => {
-                      if (connected(walletconnect)) {
-                        (connector as any).close();
-                      }
-                      deactivate();
-                    }}
-                  >
-                    Deactivate
+                    Disconnect Metamask
                   </button>
                 </>
               )}
@@ -198,7 +125,9 @@ export default function Demo() {
           </div>
         </div>
       </div>
-      <ListNFT />
+      <div className="grid">
+        <ListNFT />
+      </div>
     </>
   );
 }

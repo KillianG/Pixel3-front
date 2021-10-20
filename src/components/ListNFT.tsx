@@ -6,7 +6,7 @@ import { formatEther } from "ethers/lib/utils";
 import { useWeb3React } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
 
-import { pixel_abi } from './abi'
+import { pixel_abi, contract_address } from './abi'
 import GridSquare from './gridSquare'
 
 export function ListNFT() {
@@ -16,7 +16,7 @@ export function ListNFT() {
     if (!library)
       return
     const w = new Web3(library.provider)
-    const contract = new w.eth.Contract(pixel_abi, '0x7F5f445fD67721FE7B2f4838554369B32Fa69868')
+    const contract = new w.eth.Contract(pixel_abi, contract_address)
     contract.methods.getAllColors().call().then(elem => {
       console.log(elem)
       let copy = []
@@ -39,10 +39,8 @@ export function ListNFT() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1 className="App-title">Tetris Redux</h1>
-      </header>
-      <div className='grid-board'>
+      <button/>
+      <div className='grid-board justify-center'>
         {grid}
       </div>
     </div>
