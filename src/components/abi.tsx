@@ -1,4 +1,4 @@
-export const pixel_abi: [{}] = [
+export const pixel_abi: [{}] =[
   {
     "inputs": [],
     "stateMutability": "nonpayable",
@@ -103,9 +103,9 @@ export const pixel_abi: [{}] = [
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "newColor",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "indexed": false,
@@ -176,9 +176,9 @@ export const pixel_abi: [{}] = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "newColor",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "internalType": "uint256",
@@ -194,9 +194,9 @@ export const pixel_abi: [{}] = [
   {
     "inputs": [
       {
-        "internalType": "uint256[]",
+        "internalType": "string[]",
         "name": "newStats",
-        "type": "uint256[]"
+        "type": "string[]"
       },
       {
         "internalType": "uint256[]",
@@ -229,12 +229,12 @@ export const pixel_abi: [{}] = [
   },
   {
     "inputs": [],
-    "name": "getAllColor",
+    "name": "getAllColors",
     "outputs": [
       {
-        "internalType": "uint256[]",
+        "internalType": "string[]",
         "name": "",
-        "type": "uint256[]"
+        "type": "string[]"
       }
     ],
     "stateMutability": "view",
@@ -283,9 +283,9 @@ export const pixel_abi: [{}] = [
     "name": "getColor",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "",
-        "type": "uint256"
+        "type": "string"
       }
     ],
     "stateMutability": "view",

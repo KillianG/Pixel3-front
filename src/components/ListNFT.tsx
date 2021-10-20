@@ -16,8 +16,9 @@ export function ListNFT() {
     if (!library)
       return
     const w = new Web3(library.provider)
-    const contract = new w.eth.Contract(pixel_abi, '0x6B32105107044aE9305FAaBC395C9285F747b5B6')
-    contract.methods.getAllColor().call().then(elem => {
+    const contract = new w.eth.Contract(pixel_abi, '0x7F5f445fD67721FE7B2f4838554369B32Fa69868')
+    contract.methods.getAllColors().call().then(elem => {
+      console.log(elem)
       let copy = []
       let index = 0
       for (let row = 0; row < 25; row ++) {
