@@ -9,7 +9,7 @@ const onClick = (library, account, index) => () => {
   const w = new Web3(library.provider)
   const contract = new w.eth.Contract(pixel_abi, '0x2698EdbD8B516ee5F51D8ae19dEC80671d72de11')
   const c= Math.abs(Math.round(Math.random() * ( 0x111111 - 0xFFFFFF)))
-  console.log(c)
+  console.log(c, index)
   contract.methods.changeColor(c, index).send({from: account })
 }
 
