@@ -95,17 +95,35 @@ export default function Demo() {
               {(active || error) && connected(injected) && (
                 <>
                   {!!(library && account) && (
-                    <button
-                      type="button"
-                      className="btn btn-primary"
-                      onClick={() => {
-                        const w = new Web3(library.provider)
-                        const contract = new w.eth.Contract(pixel_abi, contract_address)
-                        contract.methods.mintNFT(account, "null").send({from: account })
-                      }}
-                    >
-                      Mint a pixel
-                    </button>
+                    <>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => {
+                          const w = new Web3(library.provider);
+                          const contract = new w.eth.Contract(pixel_abi, contract_address);
+                          contract.methods.mintNFT(account).send({ from: account });
+                          contract.methods.tokensOfOwnerBySize(account).call().then(c => {
+                            console.log(c)
+                          })
+                        }}
+                      >
+                        Mint a pixel
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => {
+                          const w = new Web3(library.provider);
+                          const nbPixel = parseInt(prompt("How much pixels ?", "0"))
+                          const contract = new w.eth.Contract(pixel_abi, contract_address);
+                          for (let i = 0; i < nbPixel; i++)
+                            contract.methods.mintNFT(account).send({ from: account });
+                        }}
+                      >
+                        Mint multiple pixel
+                      </button>
+                    </>
                   )}
                   <button
                     type="button"
