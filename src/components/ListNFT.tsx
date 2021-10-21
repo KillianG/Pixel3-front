@@ -8,6 +8,7 @@ import { Web3Provider } from "@ethersproject/providers";
 
 import { pixel_abi, contract_address } from './abi'
 import GridSquare from './gridSquare'
+import { provider } from "web3-core";
 
 export function ListNFT() {
   const { account, library } = useWeb3React<Web3Provider>();
@@ -15,7 +16,7 @@ export function ListNFT() {
   useEffect(() => {
     if (!library)
       return
-    const w = new Web3(library.provider)
+    const w = new Web3(library.provider as provider)
     const contract = new w.eth.Contract(pixel_abi, contract_address)
     contract.methods.getAllColors().call().then(elem => {
       console.log(elem)

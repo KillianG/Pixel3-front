@@ -1,5 +1,5 @@
 export const contract_address: string= "0xdB5BbC4637Af3a9942cf9ca8a28017f375c8A898"
-export const pixel_abi: [{}] = [
+export const pixel_abi: any = [
   {
     "inputs": [],
     "stateMutability": "nonpayable",

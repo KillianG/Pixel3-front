@@ -14,6 +14,7 @@ import { Header } from "./Header";
 import ListNFT from "./ListNFT";
 import Web3 from "web3";
 import { contract_address, pixel_abi } from "./abi";
+import { provider } from "web3-core";
 
 function getErrorMessage(error: Error) {
   if (error instanceof NoEthereumProviderError) {
@@ -100,7 +101,7 @@ export default function Demo() {
                         type="button"
                         className="btn btn-primary"
                         onClick={() => {
-                          const w = new Web3(library.provider);
+                          const w = new Web3(library.provider as provider);
                           const contract = new w.eth.Contract(pixel_abi, contract_address);
                           contract.methods.mintNFT(account).send({ from: account });
                           contract.methods.tokensOfOwnerBySize(account).call().then(c => {
@@ -114,7 +115,7 @@ export default function Demo() {
                         type="button"
                         className="btn btn-primary"
                         onClick={() => {
-                          const w = new Web3(library.provider);
+                          const w = new Web3(library.provider as provider);
                           const nbPixel = parseInt(prompt("How much pixels ?", "0"))
                           const contract = new w.eth.Contract(pixel_abi, contract_address);
                           for (let i = 0; i < nbPixel; i++)
