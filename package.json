@@ -1,13 +1,18 @@
 {
-  "name": "dapp-starter",
+  "name": "Pixel3.0",
   "version": "0.0.1",
+  "license": "MIT",
+  "homepage": "https://killiang.github.io/Pixel3-front",
+  "repository": {
+    "type": "git",
+    "url": "https://killiang.github.io/Pixel3-front"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "build": "rm -rf ./build && react-scripts build",
+    "predeploy": "yarn build && react-snap",
     "deploy": "gh-pages -d build",
-    "start": "next start",
-    "lint": "next lint",
-    "prepare": "husky install",
+    "start": "react-scripts start",
+    "lint": "eslint lint",
     "lint:sol": "npx solhint 'contracts/**/*.sol'",
     "test": "mocha --exit --recursive"
   },
@@ -22,9 +27,10 @@
     "daisyui": "1.14.5",
     "gh-pages": "^3.2.3",
     "loglevel": "1.7.1",
-    "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-scripts": "^4.0.3",
+    "react-snap": "^1.23.0",
     "web3-react": "5.0.5"
   },
   "devDependencies": {
@@ -47,7 +53,7 @@
     "autoprefixer": "10.3.7",
     "chai": "4.3.4",
     "dotenv": "10.0.0",
-    "eslint": "8.0.1",
+    "eslint": "^7.11.0",
     "eslint-config-airbnb": "18.2.1",
     "eslint-config-next": "11.1.2",
     "eslint-config-prettier": "8.3.0",
@@ -61,7 +67,6 @@
     "ethers": "5.4.7",
     "hardhat": "2.6.6",
     "hardhat-gas-reporter": "1.0.4",
-    "husky": "7.0.2",
     "lint-staged": "11.2.3",
     "postcss": "8.3.9",
     "prettier": "2.4.1",
@@ -77,5 +82,17 @@
   "lint-staged": {
     "*.js": "eslint --cache --fix",
     "*.{js,css,md}": "prettier --write"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

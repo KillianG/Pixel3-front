@@ -1,6 +1,6 @@
 import { Web3ReactProvider } from "@web3-react/core";
 
-import Demo, { getLibrary } from "../components/Demo";
+import Demo, { getLibrary } from "./components/Demo";
 
 function App() {
   return (
