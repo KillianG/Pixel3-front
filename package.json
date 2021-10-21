@@ -9,8 +9,7 @@
     "lint": "next lint",
     "prepare": "husky install",
     "lint:sol": "npx solhint 'contracts/**/*.sol'",
-    "test": "mocha --exit --recursive",
-    "deploy": "gh-pages -d build"
+    "test": "mocha --exit --recursive"
   },
   "dependencies": {
     "@ethersproject/providers": "5.4.5",
