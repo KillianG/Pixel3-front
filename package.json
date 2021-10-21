@@ -8,7 +8,8 @@
     "lint": "next lint",
     "prepare": "husky install",
     "lint:sol": "npx solhint 'contracts/**/*.sol'",
-    "test": "mocha --exit --recursive"
+    "test": "mocha --exit --recursive",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "@ethersproject/providers": "5.4.5",
@@ -19,6 +20,7 @@
     "@web3-react/network-connector": "6.1.9",
     "@web3-react/walletconnect-connector": "6.2.4",
     "daisyui": "1.14.5",
+    "gh-pages": "^3.2.3",
     "loglevel": "1.7.1",
     "next": "11.1.2",
     "react": "17.0.2",

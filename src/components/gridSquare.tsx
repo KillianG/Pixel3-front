@@ -24,13 +24,17 @@ const rightClick = (contract, account, index) => (e) => {
 export default function GridSquare(props) {
   const { account, library } = useWeb3React<Web3Provider>();
   const [i, setI] = useState(props.index)
-  const w = new Web3(library.provider)
-  const contract = new w.eth.Contract(pixel_abi, contract_address)
-  console.log(props.index)
-  console.log(i)
+  if (library) {
+    const w = new Web3(library.provider)
+    const contract = new w.eth.Contract(pixel_abi, contract_address)
+    console.log(props.index)
+    console.log(i)
 
-  const classes = `grid-square`
-  return <button
-    className={classes} style={{backgroundColor: props.color }}
-    onClick={onClick(contract, account, i)}/>
+    const classes = `grid-square`
+    return <button
+      className={classes} style={{ backgroundColor: props.color }}
+      onClick={onClick(contract, account, i)} />
+  } else {
+    return <p>Connect to metamask</p>
+  }
 }
