@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/iroy2000/react-redux-boilerplate/static/css/main.1b215bd0.chunk.css",
+    "main.js": "/iroy2000/react-redux-boilerplate/static/js/main.54aefbb3.chunk.js",
+    "main.js.map": "/iroy2000/react-redux-boilerplate/static/js/main.54aefbb3.chunk.js.map",
+    "runtime-main.js": "/iroy2000/react-redux-boilerplate/static/js/runtime-main.28eb769c.js",
+    "runtime-main.js.map": "/iroy2000/react-redux-boilerplate/static/js/runtime-main.28eb769c.js.map",
+    "static/js/2.795e77fb.chunk.js": "/iroy2000/react-redux-boilerplate/static/js/2.795e77fb.chunk.js",
+    "static/js/2.795e77fb.chunk.js.map": "/iroy2000/react-redux-boilerplate/static/js/2.795e77fb.chunk.js.map",
+    "index.html": "/iroy2000/react-redux-boilerplate/index.html",
+    "static/css/main.1b215bd0.chunk.css.map": "/iroy2000/react-redux-boilerplate/static/css/main.1b215bd0.chunk.css.map",
+    "static/js/2.795e77fb.chunk.js.LICENSE.txt": "/iroy2000/react-redux-boilerplate/static/js/2.795e77fb.chunk.js.LICENSE.txt",
+    "static/media/logo.b2e5a01e.svg": "/iroy2000/react-redux-boilerplate/static/media/logo.b2e5a01e.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.28eb769c.js",
+    "static/js/2.795e77fb.chunk.js",
+    "static/css/main.1b215bd0.chunk.css",
+    "static/js/main.54aefbb3.chunk.js"
+  ]
+}
