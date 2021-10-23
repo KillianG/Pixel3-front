@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import {useWeb3React} from "@web3-react/core";
 
 import {injected, walletconnect} from "../dapp/connectors";
-import { setActivatingConnector } from "../features/walletConnection/walletConnectionSlice";
+import { setActivatingConnector, mNFT } from "../features/walletConnection/walletConnectionSlice";
 
 const Connection = (props) =>  {
     const context = useWeb3React()
@@ -39,13 +39,14 @@ const Connection = (props) =>  {
                         <button
                             type="button"
                             className="btn btn-primary"
-                            onClick={() => {/* call mint action */}}
+                            onClick={() => props.mNFT({library, account})}
                         >
                             Mint a pixel
                         </button>
                         <button
                             type="button"
                             className="btn btn-primary"
+                            // onClick={() => props.mintNFTAsync(library, account)}
                             // onClick={() => {
                             //     const w = new Web3(library.provider);
                             //     const nbPixel = parseInt(prompt("How much pixels ?", "0"))
@@ -62,8 +63,11 @@ const Connection = (props) =>  {
                     type="button"
                     className="btn btn-secondary"
                     onClick={() => {
+                        console.log(walletconnect)
+                        console.log(connected(walletconnect))
                         if (connected(walletconnect)) {
-                            (connector).close();
+                            console.log('disconnect')
+                            connector.close();
                         }
                         deactivate();
                     }}
@@ -82,7 +86,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-    setActivatingConnector
+    setActivatingConnector,
+    mNFT,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Connection)
