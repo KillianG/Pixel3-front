@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { } from './walletConnectionAPI';
+import { getColors } from './walletConnectionAPI';
 import Web3 from "web3";
 import {contract_address, pixel_abi} from "./abi";
 
@@ -9,8 +9,24 @@ const initialState = {
     walletConnect: undefined,
     activatingConnector: undefined,
 
-    mint_status: 'idl'
+    get_colors: 'idle',
+    colors: []
 };
+
+// The function below is called a thunk and allows us to perform async logic. It
+// can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
+// will call the thunk with the `dispatch` function as the first argument. Async
+// code can then be executed and other actions can be dispatched. Thunks are
+// typically used to make async requests.
+export const getColorsAsync = createAsyncThunk(
+    'walletConnection/getColors',
+    async (library) => {
+        const response = await getColors(library);
+        // The value we return becomes the `fulfilled` action payload
+        console.log(response)
+        return response;
+    }
+);
 
 export const walletConnectionSlice = createSlice({
     name: 'counter',
@@ -61,13 +77,17 @@ export const walletConnectionSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-            // builder
-            // .addCase(mintNFTAsync.pending, (state) => {
-            //     state.mint_status = 'loading';
-            // })
-            // .addCase(mintNFTAsync.fulfilled, (state, action) => {
-            //     state.status = 'idle';
-            // });
+        builder
+            .addCase(getColorsAsync.pending, (state) => {
+                console.log('call colors async')
+                state.get_colors = 'loading';
+            })
+            .addCase(getColorsAsync.fulfilled, (state, action) => {
+                console.log('colors')
+                console.log('t: ' + action.payload)
+                state.get_colors = 'idle';
+                state.colors = action.payload
+            });
     },
 });
 

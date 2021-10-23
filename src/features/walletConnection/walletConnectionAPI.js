@@ -12,3 +12,19 @@ import { pixel_abi, contract_address } from "./abi";
  *   return contract.methods.mintNFT(account).send({ from: account });
  * }
 */
+
+/**
+ * Get all pixels colors
+ */
+export const getColors = (library) => {
+    const w = new Web3(library.provider);
+    const contract = new w.eth.Contract(pixel_abi, contract_address);
+
+    return new Promise((resolve, reject) =>
+        contract.methods.getAllColors().call()
+            .then((elem) => {
+                console.log(elem)
+                resolve(elem)
+            })
+    )
+}
