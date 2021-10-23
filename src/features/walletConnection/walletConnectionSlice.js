@@ -4,7 +4,7 @@ import Web3 from "web3";
 import {contract_address, pixel_abi} from "./abi";
 
 const initialState = {
-    tried: false,
+    triedEager: false,
 
     walletConnect: undefined,
     activatingConnector: undefined,
@@ -16,21 +16,49 @@ export const walletConnectionSlice = createSlice({
     name: 'counter',
     initialState,
     reducers: {
-        setTried: (state, action) => {
-            state.tried = action.payload
+        setTriedEager: (state, action) => {
+            state.triedEager = action.payload
         },
         setActivatingConnector: (state, activatingConnector) => {
             state.activatingConnector = activatingConnector
 
         },
+        /**
+         * Mint a pixel
+         * @param state
+         * @param action
+         */
         mNFT: (state, action) => {
             console.log(action.payload.account)
             const w = new Web3(action.payload.library.provider);
             const contract = new w.eth.Contract(pixel_abi, contract_address);
-            contract.methods.getColor(0).call().then(console.log)
             contract.methods.mintNFT(action.payload.account).send({ from: action.payload.account }).then(console.log)
 
-        }
+        },
+        /**
+         * Set a color for each pixels
+         * @param state
+         * @param action
+         */
+        cColors: (state, action) => {
+            console.log(action.payload.account)
+            console.log(action.payload.colors)
+            const w = new Web3(action.payload.library.provider);
+            const contract = new w.eth.Contract(pixel_abi, contract_address);
+            contract.methods.changeColors(action.payload.colors, action.payload.pixels).send({ from: action.payload.account }).then(console.log)
+        },
+        /**
+         * Set an url for multiple pixel
+         * @param state
+         * @param action
+         */
+        cUrl: (state, action) => {
+            console.log(action.payload.account)
+            console.log(action.payload.colors)
+            const w = new Web3(action.payload.library.provider);
+            const contract = new w.eth.Contract(pixel_abi, contract_address);
+            contract.methods.changeUrls(action.payload.url, action.payload.pixels).send({ from: action.payload.account }).then(console.log)
+        },
     },
     extraReducers: (builder) => {
             // builder
@@ -43,7 +71,7 @@ export const walletConnectionSlice = createSlice({
     },
 });
 
-export const { setTried, setActivatingConnector, mNFT } = walletConnectionSlice.actions;
+export const { setTriedEager, setActivatingConnector, mNFT } = walletConnectionSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of

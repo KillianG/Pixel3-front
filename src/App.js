@@ -1,58 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import {connect} from "react-redux";
+
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+import {POLLING_INTERVAL} from "./dapp/connectors";
+import {Web3Provider} from "@ethersproject/providers";
+import {useEagerConnect, useInactiveListener} from "./dapp/hooks";
+import {mNFT, setActivatingConnector, setTriedEager} from "./features/walletConnection/walletConnectionSlice";
+
+import Grid from "./components/Grid";
+import Counter from './features/counter/Counter';
+import Connection from "./components/Connection";
+
+export function getLibrary(provider) {
+    const library = new Web3Provider(provider);
+    library.pollingInterval = POLLING_INTERVAL;
+    return library;
 }
 
-export default App;
+const App = (props) => {
+    useInactiveListener(!props.triedEager || !!props.activatingConnector);
+    useEagerConnect(props.triedEager, props.setTriedEager)
+    return (
+        <div className="App">
+            <Connection />
+            <Counter />
+            <Grid />
+        </div>
+    );
+}
+
+
+const mapStateToProps = state => ({
+    triedEager: state.walletConnection.tried,
+    activatingConnector: state.walletConnection.activatingConnector,
+})
+
+const mapDispatchToProps = {
+    setActivatingConnector,
+    setTriedEager,
+    mNFT,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

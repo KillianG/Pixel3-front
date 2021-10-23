@@ -7,6 +7,7 @@ import {
   incrementAsync,
   incrementIfOdd,
 } from './counterSlice';
+import logo from '../../logo.svg';
 import styles from './Counter.module.css';
 
 const Counter = (props) => {
@@ -17,6 +18,7 @@ const Counter = (props) => {
 
   return (
     <div>
+      <img src={logo} className="App-logo" alt="logo" />
       <div className={styles.row}>
         <button
           className={styles.button}

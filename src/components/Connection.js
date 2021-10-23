@@ -46,14 +46,11 @@ const Connection = (props) =>  {
                         <button
                             type="button"
                             className="btn btn-primary"
-                            // onClick={() => props.mintNFTAsync(library, account)}
-                            // onClick={() => {
-                            //     const w = new Web3(library.provider);
-                            //     const nbPixel = parseInt(prompt("How much pixels ?", "0"))
-                            //     const contract = new w.eth.Contract(pixel_abi, contract_address);
-                            //     for (let i = 0; i < nbPixel; i++)
-                            //         contract.methods.mintNFT(account).send({ from: account });
-                            // }}
+                            onClick={() => {
+                                const nbPixel = parseInt(prompt("How much pixels ?", "0"))
+                                for (let i = 0; i < nbPixel; i++)
+                                     props.mNFT({library, account})
+                            }}
                         >
                             Mint multiple pixel
                         </button>
@@ -63,8 +60,6 @@ const Connection = (props) =>  {
                     type="button"
                     className="btn btn-secondary"
                     onClick={() => {
-                        console.log(walletconnect)
-                        console.log(connected(walletconnect))
                         if (connected(walletconnect)) {
                             console.log('disconnect')
                             connector.close();
