@@ -14,21 +14,19 @@ const Grid = (props) => {
         tableLayout:'fixed',
     };
 
-    console.log(props.colors)
     if (props.colors.length === 0) {
         return <></>
     }
-    const board = Array.from(Array(props.colors.length / 10 + 1).keys()).map((row, i) => {
-        return (<tr key={"row_"+i}>
+
+    const row_list = Array.from(Array(Math.floor(props.colors.length / 10 + 1)).keys())
+    const board = row_list.map((row, i) => (
+        <tr key={"row_"+i}>
             {Array.from(Array(10).keys()).map((col, j) => {
-                    return (
-                        <Square handleClick={()=>this.handleClick(i,j)} index={i*10+j} key={i+"_"+j} />
-                    )
-                }
-            )
-            }
-        </tr>)
-    });
+                if (i * 10 + j >= props.colors.length)
+                    return <></>
+                return <Square handleClick={()=>this.handleClick(i,j)} index={i*10+j} key={i+"_"+j} />
+            })}
+        </tr>));
     return (<>
         <div style={{margin: 'auto', width:"40%"}}>
             <table cellSpacing="0" style={style}>

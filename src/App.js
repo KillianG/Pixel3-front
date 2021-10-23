@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from "react-redux";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "shards-ui/dist/css/shards.min.css"
 import './App.css';
 
 import {POLLING_INTERVAL} from "./dapp/connectors";
@@ -29,6 +31,9 @@ const App = (props) => {
         <div className="App">
             <Connection />
             <Counter />
+            <br/>
+            <br/>
+            <br/>
             <Grid />
         </div>
     );
