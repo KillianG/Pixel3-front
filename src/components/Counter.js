@@ -1,5 +1,5 @@
-import logo from "../../logo.svg";
-import Counter from "../../features/counter/Counter";
+import logo from "../logo.svg";
+import Counter from "../features/counter/Counter";
 
 // eslint-disable-next-line
 export default () => (<div className="App">

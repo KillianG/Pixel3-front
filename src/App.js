@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { Web3Provider } from "@ethersproject/providers";
 import { useWeb3React } from "@web3-react/core";
 
-import Demo from "./components/wallet/connection";
-import Counter from './components/counter/Counter';
+import Demo from "./components/Connection";
+import Counter from './components/Counter';
 import { POLLING_INTERVAL } from "./dapp/connectors";
 import { useEagerConnect, useInactiveListener } from "./dapp/hooks";
 

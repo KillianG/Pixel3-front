@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from "react-redux"
 import {useWeb3React} from "@web3-react/core";
 
-import {injected, walletconnect} from "../../dapp/connectors";
-import {setActivatingConnector, setTried} from "../../features/walletConnection/walletConnectionSlice";
+import {injected, walletconnect} from "../dapp/connectors";
+import {setActivatingConnector, setTried} from "../features/walletConnection/walletConnectionSlice";
 
 const Connection = (props) =>  {
     const context = useWeb3React()
