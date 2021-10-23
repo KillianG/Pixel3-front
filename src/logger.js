@@ -1,5 +1,6 @@
 import loglevel from "loglevel";
 
+// eslint-disable-next-line
 export default {
     warn: loglevel.warn,
     debug: loglevel.debug,

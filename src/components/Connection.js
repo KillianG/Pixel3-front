@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import {useWeb3React} from "@web3-react/core";
 
 import {injected, walletconnect} from "../dapp/connectors";
-import {setActivatingConnector, setTried} from "../features/walletConnection/walletConnectionSlice";
+import { setActivatingConnector } from "../features/walletConnection/walletConnectionSlice";
 
 const Connection = (props) =>  {
     const context = useWeb3React()
@@ -20,7 +20,7 @@ const Connection = (props) =>  {
             className="btn btn-primary"
             disabled={disabled}
             onClick={() => {
-                setActivatingConnector(injected);
+                props.setActivatingConnector(injected);
                 activate(injected);
             }}
         >
@@ -82,7 +82,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-    setTried,
     setActivatingConnector
 }
 
