@@ -5,8 +5,8 @@ import { useWeb3React } from "@web3-react/core";
 
 import Demo from "./components/Connection";
 import Counter from './components/Counter';
-import {injected, POLLING_INTERVAL} from "./dapp/connectors";
-import { useInactiveListener } from "./dapp/hooks";
+import { POLLING_INTERVAL } from "./dapp/connectors";
+import { useEagerConnect, useInactiveListener } from "./dapp/hooks";
 
 import './App.css';
 import { setTried, setActivatingConnector } from "./features/walletConnection/walletConnectionSlice";
@@ -19,7 +19,7 @@ export function getLibrary(provider) {
 }
 
 const App = (props) => {
-    const { connector, activate, active } = useWeb3React();
+    const { connector } = useWeb3React();
 
     // handle logic to recognize the connector currently being activated
     useEffect(() => {
@@ -27,28 +27,10 @@ const App = (props) => {
             props.setActivatingConnector(undefined);
         }
     }, [props.activatingConnector, connector]);
-
     // handle logic to eagerly connect to the injected ethereum provider, if it exists and has granted access already
-    useEffect(() => {
-        injected.isAuthorized().then((isAuthorized) => {
-            if (isAuthorized) {
-                activate(injected, undefined, true).catch(() => {
-                    setTried(true);
-                });
-            } else {
-                setTried(true);
-            }
-        });
-    }, []);
-
-    // if the connection worked, wait until we get confirmation of that to flip the flag
-    useEffect(() => {
-        if (!props.tried && active) {
-            props.setTried(true);
-        }
-    }, [props.tried, active]);
+    const triedEager = useEagerConnect(props.tried, props.setTried);
     // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
-    useInactiveListener(!props.tried || !!props.activatingConnector);
+    useInactiveListener(!triedEager || !!props.activatingConnector);
 
     return (<>
         <Demo />
