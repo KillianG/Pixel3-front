@@ -11,8 +11,6 @@ const Connection = (props) =>  {
     const activating = (connection) => connection === props.activatingConnector;
     const connected = (connection) => connection === connector;
     const disabled = !props.tried || !!props.activatingConnector || connected(injected) || connected(walletconnect) || !!error;
-    console.log(props.tried, props.activatingConnector, connected(injected), connected(walletconnect))
-    console.log('loading')
 
     return (<div className="justify-center card-actions">
         <button

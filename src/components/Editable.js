@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import { connect } from "react-redux"
-import {Button, ModalHeader, Modal, ModalBody, FormInput, Col, Form} from "shards-react";
-import { HexColorPicker } from "react-colorful";
+import {ModalHeader, Modal, ModalBody } from "shards-react";
 import {
     addColorToUpdate,
     mNFT,
@@ -22,18 +21,13 @@ const tdStyle = {
 
 const Editable = (props) => {
     const [open, toggle] = useState(false)
-    // const [color, setColor] = useState(`#ffffff`);
-
-    const isUserSquare = props.wallet_pixels.includes(props.index.toString())
 
     if (props.colors[props.index] === undefined)
         return <></>
     return (<>
-        <td
-            style={tdStyle}
-        >
+        <td style={tdStyle} >
             <div
-            onClick={() => isUserSquare ? toggle(true) : true}
+            onClick={() => props.wallet_pixels.includes(props.index.toString()) ? toggle(true) : true}
             >
             <Square index={props.index}/>
             </div>
@@ -48,8 +42,6 @@ const Editable = (props) => {
 }
 
 const mapStateToProps = state => ({
-    tried: state.walletConnection.tried,
-    activatingConnector: state.walletConnection.activatingConnector,
     colors: state.walletConnection.colors,
     wallet_pixels: state.walletConnection.wallet_pixels,
 })

@@ -13,8 +13,6 @@ import {mNFT, setActivatingConnector, setTriedEager, getColorsAsync, getWalletPi
 import Grid from "./components/Grid";
 import Connection from "./components/Connection";
 import {useWeb3React} from "@web3-react/core";
-import Web3 from "web3";
-import {contract_address, pixel_abi} from "./features/walletConnection/abi";
 
 export function getLibrary(provider) {
     const library = new Web3Provider(provider);
@@ -26,10 +24,17 @@ const App = (props) => {
     const context = useWeb3React()
     const { library, account } = context;
     useEffect(() => {
-        console.log(library)
         if (library) {
             props.getColorsAsync({page: 0, library: library})
             props.getColorsAsync({page: 1, library: library})
+            props.getColorsAsync({page: 2, library: library})
+            props.getColorsAsync({page: 3, library: library})
+            props.getColorsAsync({page: 4, library: library})
+            props.getColorsAsync({page: 5, library: library})
+            props.getColorsAsync({page: 6, library: library})
+            props.getColorsAsync({page: 7, library: library})
+            props.getColorsAsync({page: 8, library: library})
+            props.getColorsAsync({page: 9, library: library})
             props.getWalletPixelsAsync({library, account})
 
         }
@@ -40,11 +45,10 @@ const App = (props) => {
     return (
         <div className="App">
             <Connection />
-            {/*<Counter />*/}
             <br/>
             <br/>
             <br/>
-            <Grid />
+            <Grid wait={3000} />
         </div>
     );
 }

@@ -1,15 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import { connect } from "react-redux"
 import {HexColorPicker} from "react-colorful";
 import { Form, FormInput } from "shards-react";
 
 import {mNFT, setActivatingConnector, updateColor} from "../features/walletConnection/walletConnectionSlice";
 
+import "./Square.css"
+
 
 const pixelStyle = {
     overflow:'hidden',
     width:'auto',
-    height:'25px',
+    height:'2px',
     backgroundColor: 'white',
     boarderColor: 'red' ,
     border: ".1px solid black",
@@ -26,7 +28,6 @@ const tableStyle = {
 
 const Square = (props) => {
     const squareColors = props.colors[props.index]
-    const [square, setSquare] = useState([])
     const [pos, setPos] = useState(undefined)
     const [color, setColor] = useState(`#ffffff`);
     const onChange = (color) => {
@@ -34,28 +35,22 @@ const Square = (props) => {
         props.updateColor(props.index, pos, color.substring(1))
     }
 
-    useEffect(() => {
-        const row_list = Array.from(Array(10).keys())
-        setSquare(row_list.map((row, i) => (
-            <tr key={"row_"+i}>
-                {Array.from(Array(10).keys()).map((col, j) => {
-                    if (i * 10 + j >= squareColors.length)
-                        return <></>
-                    return <td
-                        onClick={() => {
-                            setPos(i * 10 + j)
-                            setColor(`#${squareColors[i*10+j]}`)
-                        }}
-                        style={{...pixelStyle, backgroundColor: `#${squareColors[i*10+j]}`}}
-                    />
-                })}
-            </tr>)));
-    }, [props.get_colors, props.get_wallet, props.update_colors])
+    const row_list = Array.from(Array(props.square_size).keys())
 
     return (<>
-            <table cellSpacing="0" style={tableStyle}>
+            <table cellSpacing="0" className="square">
                 <tbody >
-                {square}
+                {row_list.map((row, i) => (<tr key={"row_"+i}>
+                        {row_list.map((col, j) => <td
+                                onClick={() => {
+                                    setPos(i * props.square_size + j)
+                                    setColor(`#${squareColors[i * props.square_size + j]}`)
+                                }}
+                                className={props.editable === true? "my-pixel-edit" : "my-pixel" }
+                                style={{backgroundColor: `#${squareColors[i * props.square_size + j]}`}}
+                            />
+                        )}
+                    </tr>))}
                 </tbody>
             </table>
         {(props.editable === true && pos !== undefined ? <>
@@ -68,14 +63,8 @@ const Square = (props) => {
 }
 
 const mapStateToProps = state => ({
-    tried: state.walletConnection.tried,
-    activatingConnector: state.walletConnection.activatingConnector,
     colors: state.walletConnection.colors,
-    wallet_pixels: state.walletConnection.wallet_pixels,
-
-    get_colors: state.walletConnection.get_colors,
-    get_wallet: state.walletConnection.get_wallet,
-    update_colors: state.walletConnection.update_colors,
+    square_size: state.walletConnection.square_size,
 })
 
 const mapDispatchToProps = {

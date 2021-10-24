@@ -9,6 +9,8 @@ const initialState = {
     walletConnect: undefined,
     activatingConnector: undefined,
 
+    board_size: 10,
+    square_size: 10,
     get_colors: 'idle',
     colors: [],
     update_colors: false,
@@ -102,10 +104,9 @@ export const walletConnectionSlice = createSlice({
                 state.get_colors = 'loading';
             })
             .addCase(getColorsAsync.fulfilled, (state, action) => {
-                const page_index = parseInt(action.payload.page) * 10;
+                const page_index = parseInt(action.payload.page) * state.square_size;
 
                 action.payload.response.forEach((elem, key) => {
-                    console.log(elem)
                     if (elem) {
                         const i = page_index + key
                         state.colors[i] = elem

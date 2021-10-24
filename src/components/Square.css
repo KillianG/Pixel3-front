@@ -1,0 +1,21 @@
+.square {
+    padding: 0;
+    border: 1px solid black;
+}
+
+.my-pixel {
+    overflow: hidden;
+    width: 3px;
+    height: 3px;
+    background-color:  white;
+    padding: 0;
+}
+
+.my-pixel-edit {
+    overflow: hidden;
+    width: 20px !important;
+    height: 20px !important;
+    background-color:  white;
+    padding: 0;
+    border: 1px solid black;
+}
