@@ -36,7 +36,7 @@ const Grid = (props) => {
     }
 
     return (<>
-        { (props.colors_to_update.length === 0) ? <></> : <Button value={'You have non push colors'} onClick={() => props.changeColors(props.colors_to_update, account, library)} /> }
+        { (props.colors_to_update.length === 0) ? <></> : <Button onClick={() => props.changeColors(props.colors_to_update, account, library)} >You have non push colors </Button> }
         <div style={{margin: 'auto', width:"40%"}}>
             <table cellSpacing="0" style={style}>
                 <tbody>

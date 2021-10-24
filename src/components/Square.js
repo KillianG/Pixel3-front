@@ -9,20 +9,20 @@ const Square = (props) => {
     const [open, toggle] = useState(false)
     const [color, setColor] = useState(`#${props.colors[props.index]}`);
 
-    const isUser = props.wallet_pixels.includes(props.index.toString())
+    const isUserPixel = props.wallet_pixels.includes(props.index.toString())
     return (<td
         style={{
             overflow:'hidden',
             width:'auto',
             height:'25px',
-            backgroundColor:(isUser ? 'red' : 'black'),
+            backgroundColor:(isUserPixel ? 'red' : 'black'),
             color:'red',
-            boarderColor: (isUser ? 'red' : 'black'),
+            boarderColor: (isUserPixel ? 'red' : 'black'),
             border:".5px solid black"
         }}
     >
         <Button
-            onClick={() => toggle(true)}
+            onClick={() => isUserPixel ? toggle(true) : true}
             style={{color: `#${props.colors[props.index]}`,
                 border:"1px solid",
                 backgroundColor: `#${props.colors[props.index]}`,
