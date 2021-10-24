@@ -12,14 +12,15 @@ const pixelStyle = {
     height:'25px',
     backgroundColor: 'white',
     boarderColor: 'red' ,
-    border:".5px solid black"
+    border: ".1px solid black",
+    padding: '0px'
 }
 const tableStyle = {
     textAlign: "center",
     margin: "auto",
     height: "100%",
     width: "100%",
-    border: "1px solid black",
+    border: "0px solid black",
     tableLayout: 'fixed',
 }
 

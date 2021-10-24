@@ -16,7 +16,8 @@ const tdStyle = {
     height: 'auto',
     backgroundColor: 'white',
     boarderColor: 'red',
-    border: ".5px solid black"
+    border: ".0px solid black",
+    padding: '0px'
 }
 
 const Editable = (props) => {
