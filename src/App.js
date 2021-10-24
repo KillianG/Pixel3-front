@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,24 +21,19 @@ export function getLibrary(provider) {
 }
 
 const App = (props) => {
+    const [current_page, setPage] = useState(0)
     const context = useWeb3React()
     const { library, account } = context;
+    useEffect(() => props.getWalletPixelsAsync({library, account}), [library])
     useEffect(() => {
         if (library) {
-            props.getColorsAsync({page: 0, library: library})
-            props.getColorsAsync({page: 1, library: library})
-            props.getColorsAsync({page: 2, library: library})
-            props.getColorsAsync({page: 3, library: library})
-            props.getColorsAsync({page: 4, library: library})
-            props.getColorsAsync({page: 5, library: library})
-            props.getColorsAsync({page: 6, library: library})
-            props.getColorsAsync({page: 7, library: library})
-            props.getColorsAsync({page: 8, library: library})
-            props.getColorsAsync({page: 9, library: library})
-            props.getWalletPixelsAsync({library, account})
-
+            console.log(props.colors.length)
+            if (current_page * 10 === props.colors.length && current_page <= 999) {
+                props.getColorsAsync({page: current_page, library: library})
+                setPage(current_page + 1)
+            }
         }
-    }, [library])
+    }, [library, props.colors])
 
     useInactiveListener(!props.triedEager || !!props.activatingConnector);
     useEagerConnect(props.triedEager, props.setTriedEager)
@@ -57,6 +52,7 @@ const App = (props) => {
 const mapStateToProps = state => ({
     triedEager: state.walletConnection.tried,
     activatingConnector: state.walletConnection.activatingConnector,
+    colors: state.walletConnection.colors,
 })
 
 const mapDispatchToProps = {

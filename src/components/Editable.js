@@ -10,9 +10,9 @@ import {
 import Square from "./Square";
 
 const tdStyle = {
-    overflow: 'hidden',
-    width: 'auto',
-    height: 'auto',
+    // overflow: 'hidden',
+    // width: 'auto',
+    // height: 'auto',
     backgroundColor: 'white',
     boarderColor: 'red',
     border: ".0px solid black",

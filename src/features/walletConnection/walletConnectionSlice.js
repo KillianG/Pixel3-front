@@ -28,8 +28,10 @@ const initialState = {
 export const getColorsAsync = createAsyncThunk(
     'walletConnection/getColors',
     async ({page, library}) => {
+        console.log('call: ' + page)
         const response = await getColors(page, library);
         // The value we return becomes the `fulfilled` action payload
+        console.log('fin call: ' + page)
         return {response, page};
     }
 );
