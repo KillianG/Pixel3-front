@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { connect } from "react-redux"
 import {HexColorPicker} from "react-colorful";
-import {Button, Form, FormInput} from "shards-react";
+import { Form, FormInput } from "shards-react";
 
 import {mNFT, setActivatingConnector, updateColor} from "../features/walletConnection/walletConnectionSlice";
 
@@ -38,7 +38,7 @@ const Square = (props) => {
         setSquare(row_list.map((row, i) => (
             <tr key={"row_"+i}>
                 {Array.from(Array(10).keys()).map((col, j) => {
-                    if (i * 10 + j >= squareColors.length)
+                    if (squareColors && i * 10 + j >= squareColors.length)
                         return <></>
                     return <td
                         onClick={() => {
