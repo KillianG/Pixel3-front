@@ -1,21 +1,27 @@
 {
   "files": {
-    "main.css": "/Pixel3-front/static/css/main.1b215bd0.chunk.css",
-    "main.js": "/Pixel3-front/static/js/main.dddd8500.chunk.js",
-    "main.js.map": "/Pixel3-front/static/js/main.dddd8500.chunk.js.map",
-    "runtime-main.js": "/Pixel3-front/static/js/runtime-main.25d9114f.js",
-    "runtime-main.js.map": "/Pixel3-front/static/js/runtime-main.25d9114f.js.map",
-    "static/js/2.795e77fb.chunk.js": "/Pixel3-front/static/js/2.795e77fb.chunk.js",
-    "static/js/2.795e77fb.chunk.js.map": "/Pixel3-front/static/js/2.795e77fb.chunk.js.map",
+    "main.css": "/Pixel3-front/static/css/main.bb9c9eb6.chunk.css",
+    "main.js": "/Pixel3-front/static/js/main.b60d2283.chunk.js",
+    "main.js.map": "/Pixel3-front/static/js/main.b60d2283.chunk.js.map",
+    "runtime-main.js": "/Pixel3-front/static/js/runtime-main.b9a610d7.js",
+    "runtime-main.js.map": "/Pixel3-front/static/js/runtime-main.b9a610d7.js.map",
+    "static/css/2.7afb6aac.chunk.css": "/Pixel3-front/static/css/2.7afb6aac.chunk.css",
+    "static/js/2.5b7f632b.chunk.js": "/Pixel3-front/static/js/2.5b7f632b.chunk.js",
+    "static/js/2.5b7f632b.chunk.js.map": "/Pixel3-front/static/js/2.5b7f632b.chunk.js.map",
+    "static/js/3.d2a5249a.chunk.js": "/Pixel3-front/static/js/3.d2a5249a.chunk.js",
+    "static/js/3.d2a5249a.chunk.js.map": "/Pixel3-front/static/js/3.d2a5249a.chunk.js.map",
+    "static/js/4.1abfc558.chunk.js": "/Pixel3-front/static/js/4.1abfc558.chunk.js",
+    "static/js/4.1abfc558.chunk.js.map": "/Pixel3-front/static/js/4.1abfc558.chunk.js.map",
     "index.html": "/Pixel3-front/index.html",
-    "static/css/main.1b215bd0.chunk.css.map": "/Pixel3-front/static/css/main.1b215bd0.chunk.css.map",
-    "static/js/2.795e77fb.chunk.js.LICENSE.txt": "/Pixel3-front/static/js/2.795e77fb.chunk.js.LICENSE.txt",
-    "static/media/logo.b2e5a01e.svg": "/Pixel3-front/static/media/logo.b2e5a01e.svg"
+    "static/css/2.7afb6aac.chunk.css.map": "/Pixel3-front/static/css/2.7afb6aac.chunk.css.map",
+    "static/css/main.bb9c9eb6.chunk.css.map": "/Pixel3-front/static/css/main.bb9c9eb6.chunk.css.map",
+    "static/js/2.5b7f632b.chunk.js.LICENSE.txt": "/Pixel3-front/static/js/2.5b7f632b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.25d9114f.js",
-    "static/js/2.795e77fb.chunk.js",
-    "static/css/main.1b215bd0.chunk.css",
-    "static/js/main.dddd8500.chunk.js"
+    "static/js/runtime-main.b9a610d7.js",
+    "static/css/2.7afb6aac.chunk.css",
+    "static/js/2.5b7f632b.chunk.js",
+    "static/css/main.bb9c9eb6.chunk.css",
+    "static/js/main.b60d2283.chunk.js"
   ]
 }
