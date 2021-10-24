@@ -28,9 +28,18 @@ const App = (props) => {
     useEffect(() => {
         if (library) {
             console.log(props.colors.length)
-            if (current_page * 10 === props.colors.length && current_page <= 999) {
+            if (current_page * 10 <= props.colors.length && current_page <= 999) {
                 props.getColorsAsync({page: current_page, library: library})
-                setPage(current_page + 1)
+                props.getColorsAsync({page: current_page + 1, library: library})
+                props.getColorsAsync({page: current_page + 2, library: library})
+                props.getColorsAsync({page: current_page + 3, library: library})
+                props.getColorsAsync({page: current_page + 4, library: library})
+                props.getColorsAsync({page: current_page + 5, library: library})
+                props.getColorsAsync({page: current_page + 6, library: library})
+                props.getColorsAsync({page: current_page + 7, library: library})
+                props.getColorsAsync({page: current_page + 8, library: library})
+                props.getColorsAsync({page: current_page + 9, library: library})
+                setPage(current_page + 10)
             }
         }
     }, [library, props.colors])
