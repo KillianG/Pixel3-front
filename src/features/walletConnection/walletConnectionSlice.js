@@ -9,7 +9,7 @@ const initialState = {
     walletConnect: undefined,
     activatingConnector: undefined,
 
-    board_size: 10,
+    board_size: 100,
     square_size: 10,
     get_colors: 'idle',
     colors: [],
