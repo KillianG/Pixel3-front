@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Pixel3-front/static/css/main.bb9c9eb6.chunk.css",
-    "main.js": "/Pixel3-front/static/js/main.c3aab804.chunk.js",
-    "main.js.map": "/Pixel3-front/static/js/main.c3aab804.chunk.js.map",
+    "main.js": "/Pixel3-front/static/js/main.b1b7e7bf.chunk.js",
+    "main.js.map": "/Pixel3-front/static/js/main.b1b7e7bf.chunk.js.map",
     "runtime-main.js": "/Pixel3-front/static/js/runtime-main.b9a610d7.js",
     "runtime-main.js.map": "/Pixel3-front/static/js/runtime-main.b9a610d7.js.map",
     "static/css/2.7afb6aac.chunk.css": "/Pixel3-front/static/css/2.7afb6aac.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.7afb6aac.chunk.css",
     "static/js/2.5b7f632b.chunk.js",
     "static/css/main.bb9c9eb6.chunk.css",
-    "static/js/main.c3aab804.chunk.js"
+    "static/js/main.b1b7e7bf.chunk.js"
   ]
 }
