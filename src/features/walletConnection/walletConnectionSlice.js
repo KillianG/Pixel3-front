@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getColors } from './walletConnectionAPI';
+import { getColors, getWalletPixels } from './walletConnectionAPI';
 import Web3 from "web3";
 import {contract_address, pixel_abi} from "./abi";
 
@@ -10,7 +10,10 @@ const initialState = {
     activatingConnector: undefined,
 
     get_colors: 'idle',
-    colors: []
+    colors: [],
+
+    get_wallet: 'idle',
+    wallet_pixels: [],
 };
 
 // The function below is called a thunk and allows us to perform async logic. It
@@ -23,7 +26,15 @@ export const getColorsAsync = createAsyncThunk(
     async (library) => {
         const response = await getColors(library);
         // The value we return becomes the `fulfilled` action payload
-        console.log(response)
+        return response;
+    }
+);
+
+export const getWalletPixelsAsync = createAsyncThunk(
+    'walletConnection/getWalletPixels',
+    async ({library, account}) => {
+        const response = await getWalletPixels(library, account);
+        // The value we return becomes the `fulfilled` action payload
         return response;
     }
 );
@@ -61,7 +72,9 @@ export const walletConnectionSlice = createSlice({
             console.log(action.payload.colors)
             const w = new Web3(action.payload.library.provider);
             const contract = new w.eth.Contract(pixel_abi, contract_address);
-            contract.methods.changeColorPack(action.payload.colors, action.payload.pixels).send({ from: action.payload.account }).then(console.log)
+            contract.methods.changeColorPack(action.payload.colors, action.payload.pixels)
+                .send({ from: action.payload.account })
+                .then(console.log)
         },
         /**
          * Set an url for multiple pixel
@@ -69,8 +82,6 @@ export const walletConnectionSlice = createSlice({
          * @param action
          */
         cUrl: (state, action) => {
-            console.log(action.payload.account)
-            console.log(action.payload.colors)
             const w = new Web3(action.payload.library.provider);
             const contract = new w.eth.Contract(pixel_abi, contract_address);
             contract.methods.changeUrls(action.payload.url, action.payload.pixels).send({ from: action.payload.account }).then(console.log)
@@ -79,14 +90,20 @@ export const walletConnectionSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getColorsAsync.pending, (state) => {
-                console.log('call colors async')
                 state.get_colors = 'loading';
             })
             .addCase(getColorsAsync.fulfilled, (state, action) => {
-                console.log('colors')
-                console.log('t: ' + action.payload)
                 state.get_colors = 'idle';
                 state.colors = action.payload
+            })
+            .addCase(getWalletPixelsAsync.pending, (state) => {
+                state.get_wallet = 'loading';
+                state.wallet_pixels = ['1']
+            })
+            .addCase(getWalletPixelsAsync.fulfilled, (state, action) => {
+                console.log(action.payload)
+                state.get_wallet    = 'idle';
+                state.wallet_pixels = action.payload
             });
     },
 });

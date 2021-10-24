@@ -20,11 +20,12 @@ export const getColors = (library) => {
     const w = new Web3(library.provider);
     const contract = new w.eth.Contract(pixel_abi, contract_address);
 
-    return new Promise((resolve, reject) =>
-        contract.methods.getAllColors().call()
-            .then((elem) => {
-                console.log(elem)
-                resolve(elem)
-            })
-    )
+    return contract.methods.getAllColors().call()
+}
+
+export const getWalletPixels = (library, account) => {
+    const w = new Web3(library.provider);
+    const contract = new w.eth.Contract(pixel_abi, contract_address);
+
+    return contract.methods.tokensOfOwnerBySize(account).call()
 }
