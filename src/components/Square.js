@@ -61,7 +61,6 @@ const Square = (props) => {
             <HexColorPicker color={color} onChange={onChange} />
             <Form>
                 <FormInput placeholder="Normal input" className="mb-2" value={color} onChange={onChange}/>
-                <Button onClick={() => {}} >Validate</Button>
             </Form>
         </> : true )}
     </>)

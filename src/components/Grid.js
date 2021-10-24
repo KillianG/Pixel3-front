@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { connect } from "react-redux"
 
-import Square from './Square'
 import {mNFT, setActivatingConnector, changeColors} from "../features/walletConnection/walletConnectionSlice";
 import {Button } from "shards-react";
 import {useWeb3React} from "@web3-react/core";
@@ -21,7 +20,7 @@ const Grid = (props) => {
     };
 
     useEffect(() => {
-        const row_list = Array.from(Array(Math.floor(props.colors.length / 10 + 1)).keys())
+        const row_list = Array.from(Array(Math.floor((props.colors.length - 1) / 10 + 1)).keys())
         setBoard(row_list.map((row, i) => (
             <tr key={"row_"+i}>
                 {Array.from(Array(10).keys()).map((col, j) => {
@@ -30,7 +29,7 @@ const Grid = (props) => {
                     return <Editable index={i*10+j} key={i+"_"+j} />
                 })}
             </tr>)));
-    }, [props.get_colors, props.get_wallet])
+    }, [props.get_colors, props.get_wallet, props.colors])
 
     if (props.colors.length === 0) {
         return <></>
