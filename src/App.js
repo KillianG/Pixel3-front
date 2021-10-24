@@ -13,6 +13,8 @@ import {mNFT, setActivatingConnector, setTriedEager, getColorsAsync, getWalletPi
 import Grid from "./components/Grid";
 import Connection from "./components/Connection";
 import {useWeb3React} from "@web3-react/core";
+import Web3 from "web3";
+import {contract_address, pixel_abi} from "./features/walletConnection/abi";
 
 export function getLibrary(provider) {
     const library = new Web3Provider(provider);

@@ -38,7 +38,7 @@ const Square = (props) => {
         setSquare(row_list.map((row, i) => (
             <tr key={"row_"+i}>
                 {Array.from(Array(10).keys()).map((col, j) => {
-                    if (squareColors && i * 10 + j >= squareColors.length)
+                    if (i * 10 + j >= squareColors.length)
                         return <></>
                     return <td
                         onClick={() => {

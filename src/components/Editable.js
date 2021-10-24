@@ -21,10 +21,12 @@ const tdStyle = {
 
 const Editable = (props) => {
     const [open, toggle] = useState(false)
-    const [color, setColor] = useState(`#ffffff`);
+    // const [color, setColor] = useState(`#ffffff`);
 
     const isUserSquare = props.wallet_pixels.includes(props.index.toString())
 
+    if (props.colors[props.index] === undefined)
+        return <></>
     return (<>
         <td
             style={tdStyle}
@@ -34,10 +36,7 @@ const Editable = (props) => {
             >
             <Square index={props.index}/>
             </div>
-            <Modal open={open} toggle={() => {
-                toggle(false)
-                setColor(`#${props.colors[props.index]}`)
-            }}>
+            <Modal open={open} toggle={() => toggle(false)}>
                 <ModalHeader>Header</ModalHeader>
                 <ModalBody>
                     <Square index={props.index} editable={true}/>
