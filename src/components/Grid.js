@@ -3,8 +3,9 @@ import { connect } from "react-redux"
 
 import Square from './Square'
 import {mNFT, setActivatingConnector, changeColors} from "../features/walletConnection/walletConnectionSlice";
-import {Button} from "shards-react";
+import {Button } from "shards-react";
 import {useWeb3React} from "@web3-react/core";
+import Editable from "./Editable";
 
 const Grid = (props) => {
     const context = useWeb3React()
@@ -13,8 +14,8 @@ const Grid = (props) => {
     const style={
         textAlign: "center",
         margin:"auto",
-        height: "auto",
-        width:"500px",
+        height: "100px",
+        width:"1000px",
         border:"1px solid black",
         tableLayout:'fixed',
     };
@@ -26,7 +27,7 @@ const Grid = (props) => {
                 {Array.from(Array(10).keys()).map((col, j) => {
                     if (i * 10 + j >= props.colors.length)
                         return <></>
-                    return <Square handleClick={()=>this.handleClick(i,j)} index={i*10+j} key={i+"_"+j} />
+                    return <Editable index={i*10+j} key={i+"_"+j} />
                 })}
             </tr>)));
     }, [props.get_colors, props.get_wallet])
@@ -37,7 +38,7 @@ const Grid = (props) => {
 
     return (<>
         { (props.colors_to_update.length === 0) ? <></> : <Button onClick={() => props.changeColors(props.colors_to_update, account, library)} >You have non push colors </Button> }
-        <div style={{margin: 'auto', width:"40%"}}>
+        <div style={{margin: 'auto', width:"1000px", height: "100px"}}>
             <table cellSpacing="0" style={style}>
                 <tbody>
                 {board}

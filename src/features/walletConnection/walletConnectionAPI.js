@@ -16,11 +16,11 @@ import { pixel_abi, contract_address } from "./abi";
 /**
  * Get all pixels colors
  */
-export const getColors = (library) => {
+export const getColors = (page, library) => {
     const w = new Web3(library.provider);
     const contract = new w.eth.Contract(pixel_abi, contract_address);
 
-    return contract.methods.getAllColors().call()
+    return contract.methods.getColorsPaginated(page).call()
 }
 
 export const getWalletPixels = (library, account) => {

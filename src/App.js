@@ -26,7 +26,8 @@ const App = (props) => {
     useEffect(() => {
         console.log(library)
         if (library) {
-            props.getColorsAsync(library)
+            props.getColorsAsync({page: 0, library: library})
+            props.getColorsAsync({page: 1, library: library})
             props.getWalletPixelsAsync({library, account})
 
         }

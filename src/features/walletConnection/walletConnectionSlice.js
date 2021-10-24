@@ -11,6 +11,7 @@ const initialState = {
 
     get_colors: 'idle',
     colors: [],
+    update_colors: false,
     colors_to_update: [],
 
     get_wallet: 'idle',
@@ -24,8 +25,8 @@ const initialState = {
 // typically used to make async requests.
 export const getColorsAsync = createAsyncThunk(
     'walletConnection/getColors',
-    async (library) => {
-        const response = await getColors(library);
+    async ({page, library}) => {
+        const response = await getColors(page, library);
         // The value we return becomes the `fulfilled` action payload
         return response;
     }
@@ -69,16 +70,11 @@ export const walletConnectionSlice = createSlice({
          * @param action
          */
         pushChangedColors: (state, action) => {
-            console.log(action.payload.account)
-            console.log(action.payload.colors)
             const w = new Web3(action.payload.library.provider);
             const contract = new w.eth.Contract(pixel_abi, contract_address);
-            contract.methods.changeColorPack(action.payload.colors, action.payload.pixels)
+            contract.methods.changeColorPack(action.payload.colors, action.payload.pixel)
                 .send({ from: action.payload.account })
                 .then(console.log)
-        },
-        updateCachedColor: (state, action) => {
-            state.colors[action.payload.index] = action.payload.color
         },
         /**
          * Set an url for multiple pixel
@@ -90,8 +86,12 @@ export const walletConnectionSlice = createSlice({
             const contract = new w.eth.Contract(pixel_abi, contract_address);
             contract.methods.changeUrls(action.payload.url, action.payload.pixels).send({ from: action.payload.account }).then(console.log)
         },
+        updateCachedColor: (state, action) => {
+            state.colors[action.payload.index] = action.payload.colors
+            state.update_colors = !state.update_colors
+        },
         addColorToUpdate: (state, action) => {
-            state.colors_to_update.push(action.payload)
+            state.colors_to_update[action.payload.index] = action.payload.colors
         },
         resetColorToUpdate: (state, action) => {
             state.colors_to_update = []
@@ -103,6 +103,7 @@ export const walletConnectionSlice = createSlice({
                 state.get_colors = 'loading';
             })
             .addCase(getColorsAsync.fulfilled, (state, action) => {
+                console.log('c: ' + action.payload)
                 state.get_colors = 'idle';
                 state.colors = action.payload
             })
@@ -134,11 +135,19 @@ export const incrementIfOdd = (amount) => (dispatch, getState) => {
     }
 };
 
-export const changeColors = (colors_to_update, account, library) => (dispatch, getState) => {
-    const pixels = colors_to_update.map(({_, pixel}) => pixel)
-    const colors = colors_to_update.map(({color, _}) => color)
 
-    dispatch(pushChangedColors({pixels: pixels, colors: colors, account: account, library: library}))
+export const  updateColor = (index, pos, c) => (dispatch, getState) => {
+    let colors = getState().walletConnection.colors[index].map((item) => item)
+    colors[pos] = c
+    console.log(colors)
+    dispatch(updateCachedColor({index, colors}))
+    dispatch(addColorToUpdate({index, colors}))
+}
+
+export const changeColors = (colors_to_update, account, library) => (dispatch, getState) => {
+    colors_to_update.map(({pixel, colors}) =>
+        dispatch(pushChangedColors({pixel: pixel, colors: colors, account: account, library: library}))
+    )
     dispatch(resetColorToUpdate())
 }
 

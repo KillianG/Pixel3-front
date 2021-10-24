@@ -1,4 +1,4 @@
-export const contract_address = "0xdB5BbC4637Af3a9942cf9ca8a28017f375c8A898"
+export const contract_address = "0xa67Ad061184F19C2f6d83aA5684144757d7EA136"
 export const pixel_abi = [
   {
     "inputs": [],
@@ -177,32 +177,14 @@ export const pixel_abi = [
   {
     "inputs": [
       {
-        "internalType": "string",
-        "name": "newColor",
-        "type": "string"
+        "internalType": "string[100]",
+        "name": "newStats",
+        "type": "string[100]"
       },
       {
         "internalType": "uint256",
         "name": "tokenId",
         "type": "uint256"
-      }
-    ],
-    "name": "changeColor",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string[]",
-        "name": "newStats",
-        "type": "string[]"
-      },
-      {
-        "internalType": "uint256[]",
-        "name": "tokenIds",
-        "type": "uint256[]"
       }
     ],
     "name": "changeColorPack",
@@ -226,19 +208,6 @@ export const pixel_abi = [
     "name": "changeLink",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getAllColors",
-    "outputs": [
-      {
-        "internalType": "string[]",
-        "name": "",
-        "type": "string[]"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -284,9 +253,28 @@ export const pixel_abi = [
     "name": "getColor",
     "outputs": [
       {
-        "internalType": "string",
+        "internalType": "string[100]",
         "name": "",
-        "type": "string"
+        "type": "string[100]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "page",
+        "type": "uint256"
+      }
+    ],
+    "name": "getColorsPaginated",
+    "outputs": [
+      {
+        "internalType": "string[100][10]",
+        "name": "",
+        "type": "string[100][10]"
       }
     ],
     "stateMutability": "view",
@@ -364,7 +352,7 @@ export const pixel_abi = [
         "type": "uint256"
       }
     ],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -407,6 +395,19 @@ export const pixel_abi = [
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "parcelSize",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",

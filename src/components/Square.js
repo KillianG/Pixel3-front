@@ -1,51 +1,70 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { connect } from "react-redux"
-import {mNFT, setActivatingConnector, addColorToUpdate, updateCachedColor} from "../features/walletConnection/walletConnectionSlice";
-import {Button, ModalHeader, Modal, ModalBody, FormInput} from "shards-react";
-import { HexColorPicker } from "react-colorful";
+import {HexColorPicker} from "react-colorful";
+import {Button, Form, FormInput} from "shards-react";
 
+import {mNFT, setActivatingConnector, updateColor} from "../features/walletConnection/walletConnectionSlice";
+
+
+const pixelStyle = {
+    overflow:'hidden',
+    width:'auto',
+    height:'25px',
+    backgroundColor: 'white',
+    boarderColor: 'red' ,
+    border:".5px solid black"
+}
+const tableStyle = {
+    textAlign: "center",
+    margin: "auto",
+    height: "100%",
+    width: "100%",
+    border: "1px solid black",
+    tableLayout: 'fixed',
+}
 
 const Square = (props) => {
-    const [open, toggle] = useState(false)
-    const [color, setColor] = useState(`#${props.colors[props.index]}`);
+    const squareColors = props.colors[props.index]
+    const [square, setSquare] = useState([])
+    const [pos, setPos] = useState(undefined)
+    const [color, setColor] = useState(`#ffffff`);
+    const onChange = (color) => {
+        setColor(color)
+        props.updateColor(props.index, pos, color.substring(1))
+    }
 
-    const isUserPixel = props.wallet_pixels.includes(props.index.toString())
-    return (<td
-        style={{
-            overflow:'hidden',
-            width:'auto',
-            height:'25px',
-            backgroundColor:(isUserPixel ? 'red' : 'black'),
-            color:'red',
-            boarderColor: (isUserPixel ? 'red' : 'black'),
-            border:".5px solid black"
-        }}
-    >
-        <Button
-            onClick={() => isUserPixel ? toggle(true) : true}
-            style={{color: `#${props.colors[props.index]}`,
-                border:"1px solid",
-                backgroundColor: `#${props.colors[props.index]}`,
-                borderColor: `#${props.colors[props.index]}`,
-                height:25}} >
-            { props.colors[props.index] }
-        </Button>
-        <Modal open={open} toggle={() => {
-            toggle(false)
-            setColor(`#${props.colors[props.index]}`)
-        }}>
-            <ModalHeader>Header</ModalHeader>
-            <ModalBody>
-                <HexColorPicker color={color} onChange={setColor} />
-                <FormInput placeholder="Normal input" className="mb-2" value={color}/>
-                <Button onClick={() => {
-                    props.addColorToUpdate({pixel: props.index, color: color.substring(1)})
-                    props.updateCachedColor({color: color.substring(1), index: props.index})
-                    toggle(false)
-                }} >Validate</Button>
-            </ModalBody>
-        </Modal>
-    </td>)
+    useEffect(() => {
+        const row_list = Array.from(Array(Math.floor((squareColors.length - 1) / 10 + 1)).keys())
+        setSquare(row_list.map((row, i) => (
+            <tr key={"row_"+i}>
+                {Array.from(Array(10).keys()).map((col, j) => {
+                    if (i * 10 + j >= squareColors.length)
+                        return <></>
+                    return <td
+                        onClick={() => {
+                            setPos(i * 10 + j)
+                            setColor(`#${squareColors[i*10+j]}`)
+                        }}
+                        style={{...pixelStyle, backgroundColor: `#${squareColors[i*10+j]}`}}
+                    />
+                })}
+            </tr>)));
+    }, [props.get_colors, props.get_wallet, props.update_colors])
+
+    return (<>
+            <table cellSpacing="0" style={tableStyle}>
+                <tbody >
+                {square}
+                </tbody>
+            </table>
+        {(props.editable === true && pos !== undefined ? <>
+            <HexColorPicker color={color} onChange={onChange} />
+            <Form>
+                <FormInput placeholder="Normal input" className="mb-2" value={color} onChange={onChange}/>
+                <Button onClick={() => {}} >Validate</Button>
+            </Form>
+        </> : true )}
+    </>)
 }
 
 const mapStateToProps = state => ({
@@ -53,13 +72,16 @@ const mapStateToProps = state => ({
     activatingConnector: state.walletConnection.activatingConnector,
     colors: state.walletConnection.colors,
     wallet_pixels: state.walletConnection.wallet_pixels,
+
+    get_colors: state.walletConnection.get_colors,
+    get_wallet: state.walletConnection.get_wallet,
+    update_colors: state.walletConnection.update_colors,
 })
 
 const mapDispatchToProps = {
     setActivatingConnector,
     mNFT,
-    addColorToUpdate,
-    updateCachedColor,
+    updateColor,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Square)
