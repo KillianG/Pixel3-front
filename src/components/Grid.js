@@ -20,7 +20,9 @@ const Grid = (props) => {
     };
 
     useEffect(() => {
-        const row_list = Array.from(Array(Math.floor((props.colors.length - 1) / 10 + 1)).keys())
+        console.log(props.colors.length)
+        const round = props.constructor % 10 === 0 ? 0 : 1
+        const row_list = Array.from(Array(Math.floor(props.colors.length / 10 + round )).keys())
         setBoard(row_list.map((row, i) => (
             <tr key={"row_"+i}>
                 {Array.from(Array(10).keys()).map((col, j) => {

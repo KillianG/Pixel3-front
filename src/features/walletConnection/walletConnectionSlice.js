@@ -108,13 +108,15 @@ export const walletConnectionSlice = createSlice({
                     const i = page_index + key
                     state.colors[i] = elem
                 })
-                state.get_colors = 'idle';
+                if (state.get_colors === 'idle')
+                    state.get_colors = 'idle2';
             })
             .addCase(getWalletPixelsAsync.pending, (state) => {
                 state.get_wallet = 'loading';
                 state.wallet_pixels = []
             })
             .addCase(getWalletPixelsAsync.fulfilled, (state, action) => {
+                console.log(action.payload)
                 state.get_wallet    = 'idle';
                 state.wallet_pixels = action.payload
             });

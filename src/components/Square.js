@@ -34,7 +34,7 @@ const Square = (props) => {
     }
 
     useEffect(() => {
-        const row_list = Array.from(Array(Math.floor((squareColors.length - 1) / 10 + 1)).keys())
+        const row_list = Array.from(Array(10).keys())
         setSquare(row_list.map((row, i) => (
             <tr key={"row_"+i}>
                 {Array.from(Array(10).keys()).map((col, j) => {
