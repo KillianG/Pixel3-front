@@ -1,20 +1,14 @@
 import React, {useState} from 'react';
 import { connect } from "react-redux"
-import {mNFT, setActivatingConnector, cColors} from "../features/walletConnection/walletConnectionSlice";
+import {mNFT, setActivatingConnector, addColorToUpdate, updateCachedColor} from "../features/walletConnection/walletConnectionSlice";
 import {Button, ModalHeader, Modal, ModalBody, FormInput} from "shards-react";
 import { HexColorPicker } from "react-colorful";
-import {useWeb3React} from "@web3-react/core";
 
 
 const Square = (props) => {
-    const context = useWeb3React()
-    const {  library, account } = context;
-
     const [open, toggle] = useState(false)
     const [color, setColor] = useState(`#${props.colors[props.index]}`);
 
-    console.log(props.index)
-    console.log(props.wallet_pixels.includes(props.index))
     const isUser = props.wallet_pixels.includes(props.index.toString())
     return (<td
         style={{
@@ -44,7 +38,11 @@ const Square = (props) => {
             <ModalBody>
                 <HexColorPicker color={color} onChange={setColor} />
                 <FormInput placeholder="Normal input" className="mb-2" value={color}/>
-                <Button onClick={() => props.cColors({pixels: [ props.index ], colors: [ color.substring(1) ], account: account, library: library})} >Validate</Button>
+                <Button onClick={() => {
+                    props.addColorToUpdate({pixel: props.index, color: color.substring(1)})
+                    props.updateCachedColor({color: color.substring(1), index: props.index})
+                    toggle(false)
+                }} >Validate</Button>
             </ModalBody>
         </Modal>
     </td>)
@@ -59,8 +57,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     setActivatingConnector,
-    cColors,
     mNFT,
+    addColorToUpdate,
+    updateCachedColor,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Square)

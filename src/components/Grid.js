@@ -2,9 +2,13 @@ import React, {useEffect, useState} from 'react';
 import { connect } from "react-redux"
 
 import Square from './Square'
-import {mNFT, setActivatingConnector} from "../features/walletConnection/walletConnectionSlice";
+import {mNFT, setActivatingConnector, changeColors} from "../features/walletConnection/walletConnectionSlice";
+import {Button} from "shards-react";
+import {useWeb3React} from "@web3-react/core";
 
 const Grid = (props) => {
+    const context = useWeb3React()
+    const { library, account } = context;
     const [board, setBoard] = useState([]);
     const style={
         textAlign: "center",
@@ -14,6 +18,7 @@ const Grid = (props) => {
         border:"1px solid black",
         tableLayout:'fixed',
     };
+
     useEffect(() => {
         const row_list = Array.from(Array(Math.floor(props.colors.length / 10 + 1)).keys())
         setBoard(row_list.map((row, i) => (
@@ -31,6 +36,7 @@ const Grid = (props) => {
     }
 
     return (<>
+        { (props.colors_to_update.length === 0) ? <></> : <Button value={'You have non push colors'} onClick={() => props.changeColors(props.colors_to_update, account, library)} /> }
         <div style={{margin: 'auto', width:"40%"}}>
             <table cellSpacing="0" style={style}>
                 <tbody>
@@ -52,11 +58,13 @@ const mapStateToProps = state => ({
 
     get_colors: state.walletConnection.get_colors,
     get_wallet: state.walletConnection.get_wallet,
+    colors_to_update: state.walletConnection.colors_to_update,
 })
 
 const mapDispatchToProps = {
     setActivatingConnector,
     mNFT,
+    changeColors
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Grid)

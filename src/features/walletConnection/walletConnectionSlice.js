@@ -11,6 +11,7 @@ const initialState = {
 
     get_colors: 'idle',
     colors: [],
+    colors_to_update: [],
 
     get_wallet: 'idle',
     wallet_pixels: [],
@@ -40,7 +41,7 @@ export const getWalletPixelsAsync = createAsyncThunk(
 );
 
 export const walletConnectionSlice = createSlice({
-    name: 'counter',
+    name: 'walletConnection',
     initialState,
     reducers: {
         setTriedEager: (state, action) => {
@@ -67,7 +68,7 @@ export const walletConnectionSlice = createSlice({
          * @param state
          * @param action
          */
-        cColors: (state, action) => {
+        pushChangedColors: (state, action) => {
             console.log(action.payload.account)
             console.log(action.payload.colors)
             const w = new Web3(action.payload.library.provider);
@@ -75,6 +76,9 @@ export const walletConnectionSlice = createSlice({
             contract.methods.changeColorPack(action.payload.colors, action.payload.pixels)
                 .send({ from: action.payload.account })
                 .then(console.log)
+        },
+        updateCachedColor: (state, action) => {
+            state.colors[action.payload.index] = action.payload.color
         },
         /**
          * Set an url for multiple pixel
@@ -85,6 +89,12 @@ export const walletConnectionSlice = createSlice({
             const w = new Web3(action.payload.library.provider);
             const contract = new w.eth.Contract(pixel_abi, contract_address);
             contract.methods.changeUrls(action.payload.url, action.payload.pixels).send({ from: action.payload.account }).then(console.log)
+        },
+        addColorToUpdate: (state, action) => {
+            state.colors_to_update.push(action.payload)
+        },
+        resetColorToUpdate: (state, action) => {
+            state.colors_to_update = []
         },
     },
     extraReducers: (builder) => {
@@ -98,7 +108,7 @@ export const walletConnectionSlice = createSlice({
             })
             .addCase(getWalletPixelsAsync.pending, (state) => {
                 state.get_wallet = 'loading';
-                state.wallet_pixels = ['1']
+                state.wallet_pixels = []
             })
             .addCase(getWalletPixelsAsync.fulfilled, (state, action) => {
                 console.log(action.payload)
@@ -108,7 +118,7 @@ export const walletConnectionSlice = createSlice({
     },
 });
 
-export const { setTriedEager, setActivatingConnector, mNFT, cColors } = walletConnectionSlice.actions;
+export const { setTriedEager, setActivatingConnector, mNFT, pushChangedColors, addColorToUpdate, resetColorToUpdate, updateCachedColor } = walletConnectionSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
@@ -123,5 +133,13 @@ export const incrementIfOdd = (amount) => (dispatch, getState) => {
         // dispatch(incrementByAmount(amount));
     }
 };
+
+export const changeColors = (colors_to_update, account, library) => (dispatch, getState) => {
+    const pixels = colors_to_update.map(({_, pixel}) => pixel)
+    const colors = colors_to_update.map(({color, _}) => color)
+
+    dispatch(pushChangedColors({pixels: pixels, colors: colors, account: account, library: library}))
+    dispatch(resetColorToUpdate())
+}
 
 export default walletConnectionSlice.reducer;

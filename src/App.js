@@ -11,7 +11,6 @@ import {useEagerConnect, useInactiveListener} from "./dapp/hooks";
 import {mNFT, setActivatingConnector, setTriedEager, getColorsAsync, getWalletPixelsAsync} from "./features/walletConnection/walletConnectionSlice";
 
 import Grid from "./components/Grid";
-import Counter from './features/counter/Counter';
 import Connection from "./components/Connection";
 import {useWeb3React} from "@web3-react/core";
 
